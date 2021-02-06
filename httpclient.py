@@ -158,8 +158,8 @@ class HTTPClient(object):
                 body_length = len(args_string.encode('utf-8'))
 
             path = parsed_url.path
-            if (path == "" or path==None) and 
-               (user_agent != "" or user_agent != None):
+            if ((path == "" or path==None) and 
+               (user_agent != "" or user_agent != None)):
                 path = "/"
             if (parsed_url.query != ''):
                 path += "?" + parsed_url.query
@@ -167,15 +167,16 @@ class HTTPClient(object):
             all_commands = ("POST {file} HTTP/1.1\r\n" 
                            + "Host: {host}\r\n"
                            + "Content-Length: {length2}\r\n"
-                           + "Content-Type: {content_type}; charset=UTF-8\r\n"
-                           + "Connection: close\r\n\r\n")
+                           + "Content-Type: {content_type}; charset=UTF-8\r\n\r\n")
 
             command = (all_commands).format(file = path,
                            content_type = "application/x-www-form-urlencoded",
                            length2 = body_length,
                            host = host)
-           
-            self.sendall(command)
+
+            command = command.encode("utf-8") + args_string.encode("utf-8")
+            
+            self.socket.sendall(command)
  
             # then, receive data
             recv_data = self.recvall(self.socket)
