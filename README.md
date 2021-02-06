@@ -7,6 +7,8 @@ See requirements.org (plain-text) for a description of the project.
 
 Make a simple web-client like curl or wget
 
+No collaborators. I finish this project on my own.
+
 Contributors / Licensing
 ========================
 
